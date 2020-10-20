@@ -1,0 +1,25 @@
+body{
+    font-family:'Kalam', cursive; 
+
+}
+
+
+
+.shop-name{
+    margin-top: 240px;
+    text-align: center;
+    
+}
+.shop-name-titre{
+     font-size: 1.6rem;
+}
+
+/*Apropos*/
+
+.propos{
+    margin-top: 200px;
+    text-align: justify;
+}
+.propos-titre{
+    text-align: center;
+}
