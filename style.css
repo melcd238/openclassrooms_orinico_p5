@@ -23,3 +23,26 @@ body{
 .propos-titre{
     text-align: center;
 }
+button a {
+    color: white;
+    
+}
+button a:hover{
+    text-decoration: none;
+    color: crimson;
+}
+.card-header{
+    display: flex;
+    justify-content: space-around;
+}
+#teddies-container{
+    margin-bottom: 40px;
+    margin-top: 40px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid goldenrod;
+}
+.item-card{
+    border: 1px solid goldenrod;
+}

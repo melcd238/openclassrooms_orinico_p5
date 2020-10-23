@@ -1,5 +1,8 @@
 // je stocke l'URL de l'API dans une variable
 const url = "http://localhost:3000/api/teddies";
+let teddies="";
+const teddiesContainer = document.querySelector('#teddies-container');
+
 // je crée ma requete
 let requete = new XMLHttpRequest;
 requete.open('GET', url);
@@ -9,8 +12,10 @@ requete.send(); // j'envoie ma requete
 requete.onload = function () { 
     if (requete.readyState === XMLHttpRequest.DONE ) { // je verifie l'état de ma requête. 
         if (requete.status === 200){
-            let reponse = requete.response;
-            console.log(reponse);
+             teddies = requete.response; // je stocke la reponse dans une variable.
+            console.log(teddies);
+            afficherTeddies(); // J'affiche dynamiquement les teddies en utilisant la fonction.
+           
 
         }
         
@@ -18,3 +23,32 @@ requete.onload = function () {
         alert("Un problème est survenu, merci de réessayer plus tard");
     }
  }
+// creation de la fonction pour afficher un teddi
+ function afficherTeddie(item) {
+     const itemElement = document.createElement('div');  
+     itemElement.innerHTML = ` <div class="col-lg-4 col-md-6 mb-4 item-card"> 
+     <div class="card text-center">
+       <div class="card-header">
+         <h2> ${item.name}</h2>
+         <p> ${item.price} € </p>
+       </div>
+       <div class="card-body">
+         <img class="card-img-top" src="${item.imageUrl}" alt="">
+         <p class="card-text">${item.description} </p>
+         
+       </div>
+       <div class="card-footer text-muted">
+         <button type="button" class="btn btn-secondary btn-lg btn-block" id="${item._id}"><a href="product.html"> Sélectionnez moi </a> </button>
+       </div>
+       </div>
+     </div>`;
+    teddiesContainer.appendChild(itemElement);
+     
+ }
+ // creation de la fonction pour afficher les teddies. 
+  function afficherTeddies() {
+    teddies.forEach(afficherTeddie);
+}
+
+
+
