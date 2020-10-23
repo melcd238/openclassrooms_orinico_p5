@@ -40,9 +40,23 @@ button a:hover{
     margin-top: 40px;
     padding-top: 20px;
     display: flex;
-    flex-direction: row;
-    border: 1px solid goldenrod;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    
 }
-.item-card{
-    border: 1px solid goldenrod;
+.page{
+    min-height:100vh;
+	display:flex; 
+	flex-direction:column; 
 }
+.container-about{
+    flex-grow:1;
+}
+.propos-paragraphe{
+    border: grey 1px solid;
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+    padding: 10px;
+}
+
