@@ -1,11 +1,11 @@
 
-const url = "http://localhost:3000/api/teddies";// je stocke l'URL de l'API dans une variable
+const urlApi = "http://localhost:3000/api/teddies";// je stocke l'URL de l'API dans une variable
 let teddies=""; 
 const teddiesContainer = document.querySelector('#teddies-container');
 
 // je crée ma requete
 let requete = new XMLHttpRequest;
-requete.open('GET', url);
+requete.open('GET', urlApi);
 requete.responseType = 'json'; 
 requete.send(); // j'envoie ma requete
 // Dès qu'on reçoit la réponse, on execute la fonction:
@@ -34,11 +34,12 @@ requete.onload = function () {
         <div class="card-body"><img class="card-img-top" src="${item.imageUrl}" alt="">
          <p class="card-text">${item.description} </p> </div>
          <div class="card-footer text-muted">
-         <button type="button" class="btn btn-secondary btn-lg btn-block" id="${item._id}"><a href="product.html"> Sélectionnez moi </a> </button>
+         <button type="button" class="btn btn-secondary btn-lg btn-block" ><a href="product.html?id=${item._id}"> Sélectionnez moi </a> </button>
        </div> </div>`;
     teddiesContainer.appendChild(itemElement);
      
  }
+ 
 
 
 
