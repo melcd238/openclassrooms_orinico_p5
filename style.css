@@ -65,4 +65,18 @@ button a:hover{
     margin-left: 50px;
     margin-bottom: 100px;
 }
+#container-panier{
+    margin-top: 150px;
+    margin-right: 50px;
+    margin-left: 50px;
+    margin-bottom: 100px;
+    border: grey 1px solid; 
+}
+.add-to-cart{
+    width: 200px;
+    margin-left: 30%;
+    margin-bottom: 100px;
+}
+
+
 

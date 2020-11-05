@@ -4,6 +4,8 @@ const itemId = searchParams.get("id");
 const urlApiId = urlApi + "/"+itemId;
 console.log(itemId);
 const teddiContainer = document.querySelector('#container-teddi');
+let btn = document.querySelector(".add-to-cart");
+  console.log(btn);
 
 
 
@@ -13,18 +15,46 @@ const appelDeApi = async function ()  {
       let item = await response.json();
       console.log(item);
       //fonction pour afficher l ' item
-    
       afficherUnItem(item);
-     }
-
-
-}
-
-
-
-function afficherUnItem(item) {
+      btn.addEventListener("click",()=>{
+        let choixTeddi = {
+          name : item.name,
+          id   : item._id,
+          image: item.imageUrl,
+          price: item.price/100,
+          color: document.getElementById("choix-couleur").value,
+          quantite : document.getElementById("qte").value
+        };
+        if(typeof localStorage != "undefined"){
+          // on recupère la valeur dans le Web Storage
+        let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
+              if (teddiesStore === null || teddiesStore === "undefined") {
+                teddiesStore = []; // on crée le tableau 
+               
+                 } 
+               if(teddiesStore) {
+                teddiesStore.push(choixTeddi); // si le tableau existe on push le choix du teddi
+               } 
+              localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore));
+              if (window.confirm(`${item.name} a bien été ajouté au panier. Voulez-vous continuer vos achat?`)) {
+                window.location.href = "index.html";
+                
+              } else {
+                window.location.href = "panier.html";
+              }
+            } else {
+              alert("localStorage n'est pas supporté");
+            }
+           
+      });
   
-  let itemTeddie = document.createElement("div");
+      
+     }
+};
+
+//fonction pour afficher l'item
+function afficherUnItem(item) {
+   let itemTeddie = document.createElement("div");
   itemTeddie.innerHTML = `  <div class="card text-center"> <div class="card-header"><h2> ${item.name}</h2>
   <p> ${item.price/100} € </p> </div>
  <div class="card-body"><img class="card-img-top" src="${item.imageUrl}" alt="">
@@ -43,16 +73,12 @@ function afficherUnItem(item) {
   </select>
   </div>
   </form>
-  <button type="button" class="btn btn-secondary btn-lg btn-block" ><a href="#"> Ajoutez au panier </a> </button>
   </div> </div>`;
-
-
 teddiContainer.appendChild(itemTeddie);
 compteur();
 optionCouleur(item);
   
 };
-
 // fonction pour la quantité
 function compteur() {
   let optionQuantite = document.getElementById("qte");
@@ -61,19 +87,15 @@ function compteur() {
      newQuantite.innerText += nbr;
      optionQuantite.append(newQuantite);
    }
-}
+};
 // fonction pour afficher les options de couleurs.
 function optionCouleur(item) {
   let optionCouleur = document.getElementById("choix-couleur")
   for (let i = 0; i < item.colors.length; i++) {
-    let newOptionCouleur = document.createElement("option");
+    let newOptionCouleur = document.createElement("option")
     newOptionCouleur.innerText = item.colors[i];
     optionCouleur.append(newOptionCouleur);
   }
-
-  
-}
-
-
+};
 appelDeApi();
 
