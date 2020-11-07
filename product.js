@@ -16,6 +16,7 @@ const appelDeApi = async function ()  {
       console.log(item);
       //fonction pour afficher l ' item
       afficherUnItem(item);
+      // A l'ecoute du bouton ajout panier 
       btn.addEventListener("click",()=>{
         let choixTeddi = {
           name : item.name,
@@ -23,8 +24,16 @@ const appelDeApi = async function ()  {
           image: item.imageUrl,
           price: item.price/100,
           color: document.getElementById("choix-couleur").value,
-          quantite : document.getElementById("qte").value
+          quantite :parseInt( document.getElementById("qte").value),
+          get totalPrice (){
+                return this.price * this.quantite;
+                
+          }
+          
+          
         };
+        
+
         if(typeof localStorage != "undefined"){
           // on recupère la valeur dans le Web Storage
         let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));

@@ -77,6 +77,17 @@ button a:hover{
     margin-left: 30%;
     margin-bottom: 100px;
 }
+.articlePanier{
+    display: flex;
+    flex-direction: column;
+}
+.titrePanier{
+    display: flex;
+    justify-content: space-between;
+}
+.prixPanier{
+    text-align: center;
+}
 
 
 
