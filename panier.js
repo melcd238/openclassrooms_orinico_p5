@@ -42,7 +42,7 @@ panierPlein.innerHTML = `
       <td class="prixPanier">${teddiInStore.price}€</td>
       <td class="prixPanier">${teddiInStore.quantite}</td>
       <td class="prixPanier totalPrice"> ${teddiInStore.totalPrice}€  </td>
-      <td class="prixPanier trash"> <button class="deleteItem"><i class="far fa-trash-alt"></i></button></td>
+      <td class="prixPanier trash"> <button class="deleteBtn" data-id=" ${teddiInStore.id}" data-color="${teddiInStore.color}"><i class="far fa-trash-alt"></i></button></td>
     </tr>
   </tbody>
 </table>`
@@ -54,10 +54,9 @@ teddiContainerPanier.appendChild(panierPlein);
     for (const teddiInStore of teddiesStore) {
       let prix = teddiInStore.totalPrice;
       arrayPrixTotal.push(prix);
-      console.log(arrayPrixTotal);
+      
     }
     let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
-    console.log(prixTotal);
     const prixTotalCommande = document.querySelector('#totalPricePanier');
     prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`
     // on incrémente le panier
@@ -65,24 +64,49 @@ teddiContainerPanier.appendChild(panierPlein);
      for (const teddiInStore of teddiesStore) {
        let itemQte = teddiInStore.quantite;
        arrayCompteurPanier.push(itemQte);
-       console.log(arrayCompteurPanier);
      }
      let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
-     console.log(compteurPanier);
      let itemInCart = document.querySelector('#cart-qte');
-     console.log(itemInCart)
      itemInCart.innerHTML=`${compteurPanier}`
 
     // on gère le button supprimer l'article
-    const deleteItem = document.querySelector(".deleteItem");
-    console.log(deleteItem);
-    deleteItem.addEventListener('click', ()=>{
-      for (const teddiInStore of teddiesStore) {
-        let teddiName= teddiInStore.name;
-        window.confirm(`Voulez-vous supprimer ${teddiName} du panier?`);
+    const deleteBtn = document.querySelectorAll(".deleteBtn");
+    console.log(deleteBtn);
+
+    function deleteTeddi(e) {
+      e.preventDefault()
+      if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
+        let targetId = e.target.getAttribut('data-id');
+        console.log(targetId);
+        let targetColor = e.target.getAttribut('data-color');
+        console.log(targetColor);
+      const teddiInStore = teddiesStore.filter(teddi  => teddi.id == targetId && teddi.color == targetColor)[0];
+      const index = teddiesStore.indexOf(teddiInStore);
+      teddiesStore.splice(index,1); 
+
+        // enregistrement du nouveau localstorage
+      localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore)) 
+      JSON.parse(localStorage.getItem("teddiesInCart"));
+       
+       window.alert(`Votre article a bien été supprimé`);
+      } 
+      else {
+        window.location.href = "panier.html"
       }
       
-    })
+    }
+    for(var i = 0;i < deleteBtn.length-1;i++){
+      deleteBtn[i].addEventListener('click', deleteTeddi)  
+            
+      };
+     
+     
+      
+    
+
+    // Gestion du bouton commander avec affichage du formulaire
+
+    // requete Post avec envoi du formulaire et de la commande 
         
     }
    
