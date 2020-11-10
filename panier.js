@@ -72,15 +72,14 @@ teddiContainerPanier.appendChild(panierPlein);
     // on gère le button supprimer l'article
     const deleteBtn = document.querySelectorAll(".deleteBtn");
     console.log(deleteBtn);
+   
 
     function deleteTeddi(e) {
       e.preventDefault()
+      
       if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
-        let targetId = e.target.getAttribut('data-id');
-        console.log(targetId);
-        let targetColor = e.target.getAttribut('data-color');
-        console.log(targetColor);
-      const teddiInStore = teddiesStore.filter(teddi  => teddi.id == targetId && teddi.color == targetColor)[0];
+        
+      const teddiInStore = teddiesStore.filter(teddi  => teddi.id == e.target.getAttribute('data-id')  && teddi.color == e.target.getAttribute('data-color'))[0];
       const index = teddiesStore.indexOf(teddiInStore);
       teddiesStore.splice(index,1); 
 
@@ -91,20 +90,27 @@ teddiContainerPanier.appendChild(panierPlein);
        window.alert(`Votre article a bien été supprimé`);
       } 
       else {
-        window.location.href = "panier.html"
+        window.location.href = "panier.html";
       }
+    
       
     }
-    for(var i = 0;i < deleteBtn.length-1;i++){
+    for(var i= 0;i < deleteBtn.length-1;i++){
       deleteBtn[i].addEventListener('click', deleteTeddi)  
             
       };
-     
-     
+      // Gestion du bouton commander avec affichage du formulaire et disparition du bouton commander
+     const validation = document.querySelector('#validate');
+     console.log(validation);
+     function form() {
+       const containerForm = document.querySelector("#container-form");
+       
+     }
+     validation.addEventListener('click',form);
       
     
 
-    // Gestion du bouton commander avec affichage du formulaire
+    
 
     // requete Post avec envoi du formulaire et de la commande 
         
