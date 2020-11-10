@@ -82,12 +82,13 @@ teddiContainerPanier.appendChild(panierPlein);
       const teddiInStore = teddiesStore.filter(teddi  => teddi.id == e.target.getAttribute('data-id')  && teddi.color == e.target.getAttribute('data-color'))[0];
       const index = teddiesStore.indexOf(teddiInStore);
       teddiesStore.splice(index,1); 
-
+      location.reload(alert(`Votre article a bien été supprimé`));
         // enregistrement du nouveau localstorage
       localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore)) 
       JSON.parse(localStorage.getItem("teddiesInCart"));
+      
        
-       window.alert(`Votre article a bien été supprimé`);
+      
       } 
       else {
         window.location.href = "panier.html";
@@ -95,7 +96,7 @@ teddiContainerPanier.appendChild(panierPlein);
     
       
     }
-    for(var i= 0;i < deleteBtn.length-1;i++){
+    for(var i= 0;i < deleteBtn.length;i++){
       deleteBtn[i].addEventListener('click', deleteTeddi)  
             
       };
