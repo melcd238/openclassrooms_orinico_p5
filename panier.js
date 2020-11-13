@@ -48,6 +48,7 @@ panierPlein.innerHTML = `
 </table>`
 teddiContainerPanier.appendChild(panierPlein);
 
+
  }
     // on affiche le prix total de la commande
     let arrayPrixTotal =[];
@@ -72,26 +73,28 @@ teddiContainerPanier.appendChild(panierPlein);
     // on gère le button supprimer l'article
     const deleteBtn = document.querySelectorAll(".deleteBtn");
     console.log(deleteBtn);
-   
+    for (let i = 0; i < deleteBtn.length; i++) {
+      console.log(deleteBtn[i].dataset.id);
+      console.log(deleteBtn[i].dataset.color);
+    }
 
+  
     function deleteTeddi(e) {
       e.preventDefault()
       
       if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
-        
-      const teddiInStore = teddiesStore.filter(teddi  => teddi.id == e.target.getAttribute('data-id')  && teddi.color == e.target.getAttribute('data-color'))[0];
-      const index = teddiesStore.indexOf(teddiInStore);
+        console.log(teddiesStore); // renvoie mon tableau d'objet 
+       
+       const index = teddiesStore.findIndex(index => index.id == deleteBtn[i].dataset.id && index.color == deleteBtn[i].dataset.color);
+        console.log(index);
+        teddiesStore.splice(index,1); 
       
-      teddiesStore.splice(index,1); 
-
-      location.reload(alert(`Votre article a bien été supprimé`));
+        location.reload(alert(`Votre article a bien été supprimé`));
 
         // enregistrement du nouveau localstorage
       localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore)) 
       JSON.parse(localStorage.getItem("teddiesInCart"));
-      
        
-      
       } 
       else {
         window.location.href = "panier.html";
@@ -108,13 +111,14 @@ teddiContainerPanier.appendChild(panierPlein);
      const containerForm = document.querySelector("#container-form");
      function form() {
        if (getComputedStyle(containerForm).display == "none" ||getComputedStyle(validation).display == "block" ){
+         // on recupere la valeur courante de la propriété display sur les const avec getComputedStyle(const).display
         containerForm.style.display = "block";
         validation.style.display = "none";
        }
      }
      validation.addEventListener('click',form);
       
-    
+    // sécurisation du formulaire 
 
     
 
