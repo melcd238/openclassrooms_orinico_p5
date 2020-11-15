@@ -1,3 +1,5 @@
+
+
 // recuperer les données stocker dans le localstorage 
 function recupTeddies() {
     let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
@@ -146,6 +148,24 @@ teddiContainerPanier.appendChild(panierPlein);
         let order = { contact, products };
 
         console.log(order);
+        // requete post 
+        const reponseOrder =fetch("http://localhost:3000/api/teddies/order", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+         body: JSON.stringify(order)
+        });
+        // reponse de la requete
+        reponseOrder.then(async response => {
+          try {
+            console.log(response);
+            const body = await response.json();
+            console.log(body);
+          } catch (error) {
+            console.log(error);
+          }
+        });
 
        
      }
