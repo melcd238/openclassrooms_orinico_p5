@@ -85,7 +85,7 @@ teddiContainerPanier.appendChild(panierPlein);
       if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
         console.log(teddiesStore); // renvoie mon tableau d'objet 
        
-       const index = teddiesStore.findIndex(index => index.id == deleteBtn[i].dataset.id && index.color == deleteBtn[i].dataset.color);
+       const index = teddiesStore.findIndex(index => index.id == e.currentTarget(deleteBtn.dataset.id)&& index.color == e.currentTarget(deleteBtn.dataset.color));
         console.log(index);
         teddiesStore.splice(index,1); 
       
@@ -102,7 +102,7 @@ teddiContainerPanier.appendChild(panierPlein);
     
       
     }
-    for(var i= 0;i < deleteBtn.length;i++){
+    for(let i= 0;i < deleteBtn.length;i++){
       deleteBtn[i].addEventListener('click', deleteTeddi)  
             
       };
@@ -117,12 +117,46 @@ teddiContainerPanier.appendChild(panierPlein);
        }
      }
      validation.addEventListener('click',form);
-      
-    // sécurisation du formulaire 
+
+     // recupération des données du formulaire et de mon tableau de produit au click sur le bouton Envoyez votre commande : 
+     const submit = document.getElementById('submitorder');
+     submit.addEventListener('click',commandePanier);
+
+     function commandePanier(e) {
+       e.preventDefault();
+       let orderInput = document.getElementsByTagName('input');
+       if (orderInput[0].value && orderInput[1].value && orderInput[2].value && orderInput[3].value && orderInput[4].value) {
+        
+        let contact = {
+            firstName: orderInput[0].value,
+            lastName: orderInput[1].value,
+            address: orderInput[2].value,
+            city: orderInput[3].value,
+            email: orderInput[4].value
+        }
+        console.log(contact);
+        let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
+        
+
+        let products = [];
+        for (let i = 0; i < teddiesStore.length; i++) {
+             products.push(teddiesStore[i].id);
+        }
+
+        let order = { contact, products };
+
+        console.log(order);
+
+       
+     }
+    }
 
     
 
-    // requete Post avec envoi du formulaire et de la commande 
+
+       
+  
+ 
         
     }
    
