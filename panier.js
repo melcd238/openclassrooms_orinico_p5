@@ -108,14 +108,16 @@ teddiContainerPanier.appendChild(panierPlein);
       deleteBtn[i].addEventListener('click', deleteTeddi)  
             
       };
+
       // Gestion du bouton commander avec affichage du formulaire et disparition du bouton commander
      const validation = document.querySelector('#validate');
      const containerForm = document.querySelector("#container-form");
      function form() {
-       if (getComputedStyle(containerForm).display == "none" ||getComputedStyle(validation).display == "block" ){
+       if (getComputedStyle(containerForm).display == "none" ||getComputedStyle(validation).display == "block" || getComputedStyle(teddiContainerPanier).display == "block" ){
          // on recupere la valeur courante de la propriété display sur les const avec getComputedStyle(const).display
         containerForm.style.display = "block";
         validation.style.display = "none";
+        teddiContainerPanier.style.display = "none";
        }
      }
      validation.addEventListener('click',form);
@@ -127,26 +129,21 @@ teddiContainerPanier.appendChild(panierPlein);
      function commandePanier(e) {
        e.preventDefault();
        let orderInput = document.getElementsByTagName('input');
-       if (orderInput[0].value && orderInput[1].value && orderInput[2].value && orderInput[3].value && orderInput[4].value) {
-        
-        let contact = {
+         let contact = {
             firstName: orderInput[0].value,
             lastName: orderInput[1].value,
             address: orderInput[2].value,
             city: orderInput[3].value,
             email: orderInput[4].value
-        }
+          }
+
         console.log(contact);
         let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
-        
-
-        let products = [];
+       let products = [];
         for (let i = 0; i < teddiesStore.length; i++) {
              products.push(teddiesStore[i].id);
-        }
-
+         }
         let order = { contact, products };
-
         console.log(order);
         // requete post 
         const reponseOrder =fetch("http://localhost:3000/api/teddies/order", {
@@ -160,12 +157,22 @@ teddiContainerPanier.appendChild(panierPlein);
         reponseOrder.then(async response => {
           try {
             console.log(response);
-            const body = await response.json();
-            console.log(body);
+            let confirmation = await response.json();
+            console.log(confirmation);
+            if (typeof localStorage != "undefined") {
+              localStorage.setItem("confirm", JSON.stringify(confirmation));
+            } else {
+              alert("localStorage n'est pas supporté");
+            }
+            localStorage.removeItem("teddiesInCart");
+            window.location.href ="confirm.html";
           } catch (error) {
             console.log(error);
           }
         });
+        
+
+        
 
        
      }
@@ -178,7 +185,7 @@ teddiContainerPanier.appendChild(panierPlein);
   
  
         
-    }
+    
    
    
 
