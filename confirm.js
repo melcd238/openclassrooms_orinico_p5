@@ -1,0 +1,1 @@
+const confirmOrder = document.getElementById('confirmationOrder');
