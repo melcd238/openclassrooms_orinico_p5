@@ -24,7 +24,7 @@ if (teddiesStore.length === 0 || teddiesStore === null) {
 } else {
     // si il y a des produits dans le panier
     // on affiche les articles dans le panier
-    for (const teddiInStore of teddiesStore) {
+    for (let teddiInStore of teddiesStore) {
         console.log(teddiInStore);
         let panierPlein = document.createElement("table");
 panierPlein.setAttribute("class","table table-striped")
@@ -40,11 +40,11 @@ panierPlein.innerHTML = `
   </thead>
   <tbody>
     <tr class="list-products-panier">
-      <td class="articlePanier">${teddiInStore.name} <img src="${teddiInStore.image}" width= 80px heigt= 80px> ${teddiInStore.color}</td>
-      <td class="prixPanier">${teddiInStore.price}€</td>
-      <td class="prixPanier">${teddiInStore.quantite}</td>
+      <td class="articlePanier">${teddiInStore.tedName} <img src="${teddiInStore.tedImage}" width= 80px heigt= 80px> ${teddiInStore.tedColor}</td>
+      <td class="prixPanier">${teddiInStore.tedPrice}€</td>
+      <td class="prixPanier">${teddiInStore.tedQuantite}</td>
       <td class="prixPanier totalPrice"> ${teddiInStore.totalPrice}€  </td>
-      <td class="prixPanier trash"> <button class="deleteBtn" data-id=" ${teddiInStore.id}" data-color="${teddiInStore.color}"><i class="far fa-trash-alt"></i></button></td>
+      <td class="prixPanier trash"> <button class="deleteBtn" data-id=" ${teddiInStore.tedId}" data-color="${teddiInStore.tedColor}"><i class="far fa-trash-alt"></i></button></td>
     </tr>
   </tbody>
 </table>`
@@ -54,9 +54,10 @@ teddiContainerPanier.appendChild(panierPlein);
  }
     // on affiche le prix total de la commande
     let arrayPrixTotal =[];
-    for (const teddiInStore of teddiesStore) {
+    for (let teddiInStore of teddiesStore) {
       let prix = teddiInStore.totalPrice;
       arrayPrixTotal.push(prix);
+      console.log(arrayPrixTotal);
       
     }
     let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
@@ -65,7 +66,7 @@ teddiContainerPanier.appendChild(panierPlein);
     // on incrémente le panier
      let arrayCompteurPanier =[] ;
      for (const teddiInStore of teddiesStore) {
-       let itemQte = teddiInStore.quantite;
+       let itemQte = teddiInStore.tedQuantite;
        arrayCompteurPanier.push(itemQte);
      }
      let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
@@ -87,7 +88,7 @@ teddiContainerPanier.appendChild(panierPlein);
       if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
         console.log(teddiesStore); // renvoie mon tableau d'objet 
        
-       const index = teddiesStore.findIndex(index => index.id == e.currentTarget(deleteBtn.dataset.id)&& index.color == e.currentTarget(deleteBtn.dataset.color));
+       const index = teddiesStore.findIndex(index => index.TedId == e.currentTarget(deleteBtn.dataset.id)&& index.color == e.currentTarget(deleteBtn.dataset.color));
         console.log(index);
         teddiesStore.splice(index,1); 
       
@@ -139,9 +140,12 @@ teddiContainerPanier.appendChild(panierPlein);
 
         console.log(contact);
         let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
-       let products = [];
-        for (let i = 0; i < teddiesStore.length; i++) {
-             products.push(teddiesStore[i].id);
+        console.log(teddiesStore);
+        let products = [];
+        for (const teddiInStore of teddiesStore) {
+             let productsId = teddiInStore.tedId;
+             products.push(productsId);
+             console.log(products);
          }
         let order = { contact, products };
         console.log(order);
@@ -153,22 +157,22 @@ teddiContainerPanier.appendChild(panierPlein);
           },
          body: JSON.stringify(order)
         });
-        // reponse de la requete
-        reponseOrder.then(async response => {
+        //reponse de la requete
+       reponseOrder.then(async response => {
           try {
-            console.log(response);
+           console.log(response);
             let confirmation = await response.json();
             console.log(confirmation);
-            if (typeof localStorage != "undefined") {
-              localStorage.setItem("confirm", JSON.stringify(confirmation));
-            } else {
-              alert("localStorage n'est pas supporté");
-            }
-            localStorage.removeItem("teddiesInCart");
-            window.location.href ="confirm.html";
-          } catch (error) {
-            console.log(error);
+           if (typeof localStorage != "undefined") {
+            localStorage.setItem("confirm", JSON.stringify(confirmation));
+           } else {
+             alert("localStorage n'est pas supporté");
           }
+          localStorage.removeItem("teddiesInCart");
+           window.location.href ="confirm.html";
+         } catch (error) {
+           console.log(error);
+         }
         });
         
 

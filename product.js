@@ -12,21 +12,21 @@ let btn = document.querySelector(".add-to-cart");
 const appelDeApi = async function ()  {
     let response = await fetch(urlApiId);
     if (response.ok) {
-      let item = await response.json();
-      console.log(item);
+      let itemTed = await response.json();
+      console.log(itemTed);
       //fonction pour afficher l ' item
-      afficherUnItem(item);
+      afficherUnItem(itemTed);
       // A l'ecoute du bouton ajout panier 
       btn.addEventListener("click",()=>{
         let choixTeddi = {
-          name : item.name,
-          id   : item._id,
-          image: item.imageUrl,
-          price: item.price/100,
-          color: document.getElementById("choix-couleur").value,
-          quantite :parseInt( document.getElementById("qte").value),
+          tedName : itemTed.name,
+          tedId   : itemTed._id,
+          tedImage: itemTed.imageUrl,
+          tedPrice: itemTed.price/100,
+          tedColor: document.getElementById("choix-couleur").value,
+          tedQuantite :parseInt( document.getElementById("qte").value),
           get totalPrice (){
-                return this.price * this.quantite;
+                return this.tedPrice * this.tedQuantite;
                 
           }
           
@@ -45,7 +45,7 @@ const appelDeApi = async function ()  {
                 teddiesStore.push(choixTeddi); // si le tableau existe on push le choix du teddi
                } 
               localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore));
-              if (window.confirm(`${item.name} a bien été ajouté au panier. Voulez-vous continuer vos achat?`)) {
+              if (window.confirm(`${itemTed.name} a bien été ajouté au panier. Voulez-vous continuer vos achat?`)) {
                 window.location.href = "index.html";
                 
               } else {
@@ -62,32 +62,28 @@ const appelDeApi = async function ()  {
 };
 
 //fonction pour afficher l'item
-function afficherUnItem(item) {
+function afficherUnItem(itemTed) {
    let itemTeddie = document.createElement("div");
-  itemTeddie.innerHTML = `  <div class="card text-center"> <div class="card-header"><h2> ${item.name}</h2>
-  <p> ${item.price/100} € </p> </div>
- <div class="card-body"><img class="card-img-top" src="${item.imageUrl}" alt="">
-  <p class="card-text">${item.description} </p> </div>
+  itemTeddie.innerHTML = `  <div class="card text-center"> <div class="card-header"><h2> ${itemTed.name}</h2>
+  <p> ${itemTed.price/100} € </p> </div>
+ <div class="card-body"><img class="card-img-top" src="${itemTed.imageUrl}" alt="">
+  <p class="card-text">${itemTed.description} </p> </div>
  <div class="card-footer text-muted">
-  <div class="card-footer text-muted">
   <form>
   <div class="form-group">
     <label for="quantité">Choisissez une quantité (<em> Dans la limite de 5 oursons </em>) </label>
     <select class="form-control" id="qte" name="quantité">
     </select>
-  </div>
-  <div class="form-group">
+  </div><div class="form-group">
   <label>Choisissez une couleur </label>
   <select class="form-control" id="choix-couleur">
-  </select>
-  </div>
-  </form>
-  </div> </div>`;
+  </select> </div></form></div>`;
 teddiContainer.appendChild(itemTeddie);
 compteur();
-optionCouleur(item);
+optionCouleur(itemTed);
   
 };
+
 // fonction pour la quantité
 function compteur() {
   let optionQuantite = document.getElementById("qte");
@@ -98,11 +94,11 @@ function compteur() {
    }
 };
 // fonction pour afficher les options de couleurs.
-function optionCouleur(item) {
+function optionCouleur(itemTed) {
   let optionCouleur = document.getElementById("choix-couleur")
-  for (let i = 0; i < item.colors.length; i++) {
+  for (let i = 0; i < itemTed.colors.length; i++) {
     let newOptionCouleur = document.createElement("option")
-    newOptionCouleur.innerText = item.colors[i];
+    newOptionCouleur.innerText = itemTed.colors[i];
     optionCouleur.append(newOptionCouleur);
   }
 };
