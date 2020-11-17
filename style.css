@@ -51,6 +51,7 @@ button a:hover{
 }
 .container-about{
     flex-grow:1;
+
 }
 .propos-paragraphe{
     border: grey 1px solid;
@@ -59,17 +60,26 @@ button a:hover{
     margin-left: 100px;
     padding: 10px;
 }
+.containerTeddi{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #container-teddi{
-    margin-top: 150px;
-    margin-right: 50px;
-    margin-left: 50px;
-    margin-bottom: 100px;
+    margin-top: 100px;
+    margin-bottom: 20px;
+    
+}
+.add-to-cart{
+    margin-bottom: 20px;
 }
 #container-panier{
     margin-top: 150px;
     margin-right: 50px;
     margin-left: 50px;
-    margin-bottom:50px;
+    margin-bottom:10px;
     border: grey 1px solid; 
 }
 #container-form{
@@ -79,11 +89,7 @@ button a:hover{
     margin-bottom: 50px;
     border: grey 1px solid; 
 }
-.add-to-cart{
-    width: 200px;
-    margin-left: 30%;
-    margin-bottom: 100px;
-}
+
 .articlePanier{
     display: flex;
     flex-direction: column;
@@ -97,17 +103,41 @@ button a:hover{
 }
 #container-button{
     text-align: center; 
+    margin-bottom: 50px;
+    
+    
 }
 #container-form{
     display: none;
+    border-radius: 10px;
 }
 input:invalid {
     border: 2px dashed red;
+    margin-left: 20px;
   }
   
   input:valid {
     border: 1px solid black;
+    margin-left: 20px;
   }
+ .carIndex{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+ } 
+
+ #carouselIndex{
+     border : 3px solid #00000008;
+     border-radius: 10px;
+     background-color:#00000008 ;
+    
+ } 
+ .pagePanier{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+ }
 
 
 

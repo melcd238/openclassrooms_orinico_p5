@@ -1,3 +1,9 @@
+const teddiContainerPanier = document.querySelector("#container-panier");
+const validation = document.querySelector('#validate');
+const containerForm = document.querySelector("#container-form");
+let teddiesStore = recupTeddies();
+
+
 // recuperer les données stocker dans le localstorage 
 function recupTeddies() {
     let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
@@ -6,18 +12,19 @@ function recupTeddies() {
     }
     return teddiesStore;  
 }
-// 
-const teddiContainerPanier = document.querySelector("#container-panier");
 
 
-let teddiesStore = recupTeddies();
+
 // affichage des articles dans le panier 
 // si le panier est vide
-if (teddiesStore.length === 0 || teddiesStore === null) {
+if (teddiesStore.length === 0 || teddiesStore === null && getComputedStyle(validation).display == "block") {
+    validation.style.display =" none";
     let panierVide = document.createElement("div");
     panierVide.innerHTML = `<p> Votre panier est vide </p>
     <button type="button" class="btn btn-secondary btn-lg btn-block" > <a href = "index.html"> Retour au store</a> </button> `
     teddiContainerPanier.appendChild(panierVide);
+    
+    
 
 } else {
     // si il y a des produits dans le panier
@@ -109,8 +116,6 @@ teddiContainerPanier.appendChild(panierPlein);
       };
 
       // Gestion du bouton commander avec affichage du formulaire et disparition du bouton commander
-     const validation = document.querySelector('#validate');
-     const containerForm = document.querySelector("#container-form");
      function form() {
        if (getComputedStyle(containerForm).display == "none" ||getComputedStyle(validation).display == "block" || getComputedStyle(teddiContainerPanier).display == "block" ){
          // on recupere la valeur courante de la propriété display sur les const avec getComputedStyle(const).display
@@ -120,6 +125,7 @@ teddiContainerPanier.appendChild(panierPlein);
        }
      }
      validation.addEventListener('click',form);
+
 
      // recupération des données du formulaire et de mon tableau de produit au click sur le bouton Envoyez votre commande : 
      const submit = document.getElementById('submitorder');

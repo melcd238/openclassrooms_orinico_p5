@@ -13,4 +13,6 @@ affichageConfirmOrder();
      Vous allez recevoir un mail de confirmation à cette adresse : ${confirmation.contact.email}.
      Si vous ne recevez pas d'email, merci de contacter notre service client. `; 
      
- }
+    }
+
+ // supression du LocalStorage et retour au Store    
