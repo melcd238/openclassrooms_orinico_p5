@@ -1,5 +1,3 @@
-
-
 // recuperer les données stocker dans le localstorage 
 function recupTeddies() {
     let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
@@ -130,53 +128,57 @@ teddiContainerPanier.appendChild(panierPlein);
      function commandePanier(e) {
        e.preventDefault();
        let orderInput = document.getElementsByTagName('input');
-         let contact = {
-            firstName: orderInput[0].value,
-            lastName: orderInput[1].value,
-            address: orderInput[2].value,
-            city: orderInput[3].value,
-            email: orderInput[4].value
-          }
+       if (orderInput[0].value && orderInput[1].value && orderInput[2].value && orderInput[3].value && orderInput[4].value ) {
+        let contact = {
+          firstName: orderInput[0].value,
+          lastName: orderInput[1].value,
+          address: orderInput[2].value,
+          city: orderInput[3].value,
+          email: orderInput[4].value
+        }
 
-        console.log(contact);
-        let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
-        console.log(teddiesStore);
-        let products = [];
-        for (const teddiInStore of teddiesStore) {
-             let productsId = teddiInStore.tedId;
-             products.push(productsId);
-             console.log(products);
-         }
-        let order = { contact, products };
-        console.log(order);
-        // requete post 
-        const reponseOrder =fetch("http://localhost:3000/api/teddies/order", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-         body: JSON.stringify(order)
-        });
-        //reponse de la requete
-       reponseOrder.then(async response => {
-          try {
-           console.log(response);
-            let confirmation = await response.json();
-            console.log(confirmation);
-           if (typeof localStorage != "undefined") {
-            localStorage.setItem("confirm", JSON.stringify(confirmation));
-           } else {
-             alert("localStorage n'est pas supporté");
-          }
+      console.log(contact);
+      let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
+      console.log(teddiesStore);
+      let products = [];
+      for (const teddiInStore of teddiesStore) {
+           let productsId = teddiInStore.tedId;
+           products.push(productsId);
+           console.log(products);
+       }
+      let order = { contact, products };
+      console.log(order);
+    
+      // requete post 
+      const reponseOrder =fetch("http://localhost:3000/api/teddies/order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+       body: JSON.stringify(order)
+      });
+      //reponse de la requete
+      reponseOrder.then(async response => {
+        try {
+         console.log(response);
+          let confirmation = await response.json();
+          console.log(confirmation);
+         if (typeof localStorage != "undefined") {
+          localStorage.setItem("confirm", JSON.stringify(confirmation));
           localStorage.removeItem("teddiesInCart");
-           window.location.href ="confirm.html";
-         } catch (error) {
-           console.log(error);
-         }
-        });
+         window.location.href ="confirm.html";
+         } else {
+           alert("localStorage n'est pas supporté");
+        }
         
+       } catch (error) {
+         console.log(error);
+       }
+      });
 
-        
+       } else {
+         alert("Merci de remplir tous les champs!")
+       } 
 
        
      }
