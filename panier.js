@@ -93,7 +93,7 @@ teddiContainerPanier.appendChild(panierPlein);
       if(window.confirm(`Voulez-vous supprimer cet article du panier?`)){
         console.log(teddiesStore); // renvoie mon tableau d'objet 
        
-       const index = teddiesStore.findIndex(index => index.TedId == e.currentTarget(deleteBtn.dataset.id)&& index.color == e.currentTarget(deleteBtn.dataset.color));
+       const index = teddiesStore.findIndex(index => index.TedId == this.dataset.id && index.color == this.dataset.color);
         console.log(index);
         teddiesStore.splice(index,1); 
       
