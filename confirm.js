@@ -1,5 +1,5 @@
 // recuperation de la reponse de confirmation
-let confirmation = JSON.parse(localStorage.getItem("confirm"));
+let confirmation = JSON.parse(sessionStorage.getItem("confirm"));
 console.log(confirmation);
 
 // affichage de la confirmation de commande
@@ -15,4 +15,6 @@ affichageConfirmOrder();
      
     }
 
- // supression du LocalStorage et retour au Store    
+ // supression du sessionStorage    
+
+ sessionStorage.clear();

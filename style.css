@@ -3,8 +3,6 @@ body{
 
 }
 
-
-
 .shop-name{
     margin-top: 240px;
     text-align: center;
@@ -137,6 +135,14 @@ input:invalid {
      flex-direction: column;
      justify-content: center;
      align-items: center;
+ }
+ .confirm-paragraphe{
+    border: grey 1px solid;
+    border-radius: 10px;
+    margin-top: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+    padding: 10px;
  }
 
 

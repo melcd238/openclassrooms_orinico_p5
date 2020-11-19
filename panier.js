@@ -170,7 +170,7 @@ teddiContainerPanier.appendChild(panierPlein);
           let confirmation = await response.json();
           console.log(confirmation);
          if (typeof localStorage != "undefined") {
-          localStorage.setItem("confirm", JSON.stringify(confirmation));
+          sessionStorage.setItem("confirm", JSON.stringify(confirmation));
           localStorage.removeItem("teddiesInCart");
          window.location.href ="confirm.html";
          } else {
