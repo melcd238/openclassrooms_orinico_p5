@@ -34,6 +34,9 @@ const displayTeddi = () => {
     divAffichageTeddiStore.innerHTML =" ";
     // j'utilise l'operateur spread pour retourner une liste et pas un tableau
     divAffichageTeddiStore.append(...teddiesStoreNode);
+    compteurPanier();
+    prixTotalPanier();
+    
 };
 // fonction pour creer l'element  teddi 
 const createTeddiElement = (teddi , index) =>{
@@ -59,6 +62,7 @@ const createTeddiElement = (teddi , index) =>{
     const btnDelete = ul.querySelector('.deleteBtn');
     btnDelete.addEventListener('click', (event)=>{
         deleteTeddi(index);
+        
     })
     
     return ul;
@@ -69,24 +73,32 @@ const deleteTeddi = (index)=>{
     localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore)) 
     JSON.parse(localStorage.getItem("teddiesInCart"));
     displayTeddi();
+    compteurPanier();
+    prixTotalPanier();
 }
 // incrementation du panier:
 let arrayCompteurPanier =[] ;
-for (const teddiInStore of teddiesStore) {
-  let itemQte = teddiInStore.tedQuantite;
-  arrayCompteurPanier.push(itemQte); }
-let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
-let itemInCart = document.querySelector('#cart-qte');
-itemInCart.innerHTML=`${compteurPanier}`
+const compteurPanier = () =>{
+  for (const teddiInStore of teddiesStore) {
+    let itemQte = teddiInStore.tedQuantite;
+    arrayCompteurPanier.push(itemQte); }
+  let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
+  let itemInCart = document.querySelector('#cart-qte');
+  itemInCart.innerHTML=`${compteurPanier}`
+}
+
 // calcul du prix total de la commande:
 let arrayPrixTotal =[];
-for (let teddiInStore of teddiesStore) {
-  let prix = teddiInStore.totalPrice;
-  arrayPrixTotal.push(prix);
-  console.log(arrayPrixTotal); }
-let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
-const prixTotalCommande = document.querySelector('#totalPricePanier');
-prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`
+const prixTotalPanier = ()=>{
+  for (let teddiInStore of teddiesStore) {
+    let prix = teddiInStore.totalPrice;
+    arrayPrixTotal.push(prix);
+    console.log(arrayPrixTotal); }
+  let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
+  const prixTotalCommande = document.querySelector('#totalPricePanier');
+  prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`
+}
+
 
 
 // fonction pour recupérer le formulaire au click sur le bouton validez votre commande:
