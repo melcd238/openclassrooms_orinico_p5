@@ -34,8 +34,7 @@ const displayTeddi = () => {
     divAffichageTeddiStore.innerHTML =" ";
     // j'utilise l'operateur spread pour retourner une liste et pas un tableau
     divAffichageTeddiStore.append(...teddiesStoreNode);
-    compteurPanier();
-    prixTotalPanier();
+    
     
 };
 // fonction pour creer l'element  teddi 
@@ -77,23 +76,26 @@ const deleteTeddi = (index)=>{
     prixTotalPanier();
 }
 // incrementation du panier:
-let arrayCompteurPanier =[] ;
+
 const compteurPanier = () =>{
+  let arrayCompteurPanier =[] ;
   for (const teddiInStore of teddiesStore) {
     let itemQte = teddiInStore.tedQuantite;
     arrayCompteurPanier.push(itemQte); }
+    console.log(arrayCompteurPanier);
   let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   let itemInCart = document.querySelector('#cart-qte');
   itemInCart.innerHTML=`${compteurPanier}`
 }
 
 // calcul du prix total de la commande:
-let arrayPrixTotal =[];
+
 const prixTotalPanier = ()=>{
-  for (let teddiInStore of teddiesStore) {
+  let arrayPrixTotal =[];
+  for (const teddiInStore of teddiesStore) {
     let prix = teddiInStore.totalPrice;
-    arrayPrixTotal.push(prix);
-    console.log(arrayPrixTotal); }
+    arrayPrixTotal.push(prix);}
+    console.log(arrayPrixTotal); 
   let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   const prixTotalCommande = document.querySelector('#totalPricePanier');
   prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`
@@ -179,8 +181,8 @@ const commandePanier = () =>{
 
     }
 
-
-
+ compteurPanier();
+ prixTotalPanier();
 
 displayTeddi();
 }
