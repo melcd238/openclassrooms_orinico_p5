@@ -75,47 +75,35 @@ const deleteTeddi = (index)=>{
     localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore)) 
     JSON.parse(localStorage.getItem("teddiesInCart"));
     displayTeddi();
-    compteurPanier();
-    prixTotalPanier();
+    compteurPanierPrixTotal();
+    
 
 }
-// incrementation du panier:
+// incrementation du panier et  calcul du prix total de la commande:
 
-const compteurPanier = () =>{
+const compteurPanierPrixTotal = () =>{
   let arrayCompteurPanier =[] ;
+  let arrayPrixTotal =[];
   for (const teddiInStore of teddiesStore) {
     let itemQte = teddiInStore.tedQuantite;
-    arrayCompteurPanier.push(itemQte); }
+    arrayCompteurPanier.push(itemQte); 
     console.log(arrayCompteurPanier);
+    let prix = teddiInStore.totalPrice;
+    arrayPrixTotal.push(prix);}
+    console.log(arrayPrixTotal);
     if (arrayCompteurPanier.length === 0 ) {
-      window.location.href="panier.html"
+      window.location.reload();
    }else {
   let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   let itemInCart = document.querySelector('#cart-qte');
   itemInCart.innerHTML=`${compteurPanier}`;}
- 
-
-}
-
-// calcul du prix total de la commande:
-
-const prixTotalPanier = ()=>{
-  let arrayPrixTotal =[];
-  for (const teddiInStore of teddiesStore) {
-    let prix = teddiInStore.totalPrice;
-    arrayPrixTotal.push(prix);}
-    console.log(arrayPrixTotal);
-    if (arrayPrixTotal.length === 0) {
-      window.location.href = "panier.html"
-   }else { 
   let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   const prixTotalCommande = document.querySelector('#totalPricePanier');
   prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`;
-  sessionStorage.setItem("TotalPrice", prixTotal);}
-  
+  sessionStorage.setItem("TotalPrice", prixTotal);
+ 
+
 }
-
-
 
 // fonction pour recupérer le formulaire au click sur le bouton validez votre commande:
 function form() {
@@ -195,8 +183,7 @@ const commandePanier = () =>{
 
     }
 
- compteurPanier();
- prixTotalPanier();
-
+ 
+ compteurPanierPrixTotal();
 displayTeddi();
 }
