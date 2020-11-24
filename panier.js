@@ -3,6 +3,7 @@ const validation = document.querySelector('#validate');
 const teddiContainerPanier = document.querySelector("#container-panier2");
 const containerForm = document.querySelector("#container-form");
 
+
 // recuperer les données stocker dans le localstorage 
 function recupTeddies() {
     let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
@@ -25,6 +26,7 @@ if (teddiesStore.length === 0 || teddiesStore === null && getComputedStyle(valid
     teddiContainerPanier.appendChild(panierVide);
     
     
+    
 // s'il y a des teddi dans le panier : 
 } else {
 const displayTeddi = () => {
@@ -34,6 +36,7 @@ const displayTeddi = () => {
     divAffichageTeddiStore.innerHTML =" ";
     // j'utilise l'operateur spread pour retourner une liste et pas un tableau
     divAffichageTeddiStore.append(...teddiesStoreNode);
+    
     
     
 };
@@ -74,6 +77,7 @@ const deleteTeddi = (index)=>{
     displayTeddi();
     compteurPanier();
     prixTotalPanier();
+
 }
 // incrementation du panier:
 
@@ -83,9 +87,14 @@ const compteurPanier = () =>{
     let itemQte = teddiInStore.tedQuantite;
     arrayCompteurPanier.push(itemQte); }
     console.log(arrayCompteurPanier);
+    if (arrayCompteurPanier.length === 0 ) {
+      window.location.href="panier.html"
+   }else {
   let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   let itemInCart = document.querySelector('#cart-qte');
-  itemInCart.innerHTML=`${compteurPanier}`
+  itemInCart.innerHTML=`${compteurPanier}`;}
+ 
+
 }
 
 // calcul du prix total de la commande:
@@ -95,10 +104,15 @@ const prixTotalPanier = ()=>{
   for (const teddiInStore of teddiesStore) {
     let prix = teddiInStore.totalPrice;
     arrayPrixTotal.push(prix);}
-    console.log(arrayPrixTotal); 
+    console.log(arrayPrixTotal);
+    if (arrayPrixTotal.length === 0) {
+      window.location.href = "panier.html"
+   }else { 
   let prixTotal = arrayPrixTotal.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   const prixTotalCommande = document.querySelector('#totalPricePanier');
-  prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`
+  prixTotalCommande.innerHTML= `PRIX TOTAL: ${prixTotal}€`;
+  sessionStorage.setItem("TotalPrice", prixTotal);}
+  
 }
 
 
@@ -134,7 +148,7 @@ const commandePanier = () =>{
           city: orderInput[3].value,
           email: orderInput[4].value
         }
-
+        
       console.log(contact);
       let teddiesStore = JSON.parse(localStorage.getItem("teddiesInCart"));
       console.log(teddiesStore);
