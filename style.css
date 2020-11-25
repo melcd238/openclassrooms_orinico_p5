@@ -118,6 +118,11 @@ input:invalid {
     border: 1px solid black;
     margin-left: 20px;
   }
+  .form-group  p{
+      font-weight: 200;
+      font-size: x-small;
+      margin-left: 20px;
+  }
  .carIndex{
     display: flex; 
     justify-content: center;
