@@ -92,31 +92,35 @@
         <div class="form-group row">
           <label for="firstName" class="col-sm-2 col-form-label">FirstName</label>
           <div class="col-sm-8">
-            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="First name" required>
+            <input type="text" name="firstName" class="form-control" id="firstName" placeholder="dupont" required pattern="[a-z]{2,30}">
+            <p>Un nom d'utilisateur doit être en minuscules sur 2 à 30 caractères.</p>
           </div>
         </div>
         <div class="form-group row">
           <label for="lastName" class="col-sm-2 col-form-label">LastName</label>
           <div class="col-sm-8">
-            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="Last name" required>
+            <input type="text" name="lastName" class="form-control" id="lastName" placeholder="jean" required pattern="[a-zA-ZÀ-ÿ]{2,30}">
+            <p>Un prénom d'utilisateur doit être en minuscules sur 2 à 30 caractères.</p>
           </div>
         </div>
         <div class="form-group row">
           <label for="address" class="col-sm-2 col-form-label">Address</label>
           <div class="col-sm-8">
-            <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St" required>
+            <input type="text" name="address" class="form-control" id="address" placeholder="1234 Main St" required pattern= "[0-9]{1,3}(?:(?:[,. ]?){1}[-a-zA-Zàâäéèêëïîôöùûüç]+)*">
           </div>
         </div>
         <div class="form-group row">
           <label for="city" class="col-sm-2 col-form-label">City</label>
           <div class="col-sm-8">
-            <input type="text" name="city" class="form-control" id="city" placeholder="City" required>
+            <input type="text" name="city" class="form-control" id="city" placeholder="paris" required pattern="[a-z]{2,30}">
+            <p>Une ville doit être en minuscules sur 2 à 30 caractères.</p>
           </div>
         </div>
         <div class="form-group row">
           <label for="email" class="col-sm-2 col-form-label">Email</label>
           <div class="col-sm-8">
-            <input type="email"  name="email" class="form-control" id="email" placeholder="Email" required>
+            <input type="email"  name="email" class="form-control" id="email" placeholder="toto@exemple.com" required pattern="[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})">
+      
           </div>
         </div>
         <div class="form-group row">

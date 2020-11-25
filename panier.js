@@ -120,8 +120,15 @@ validation.addEventListener('click',form);
 // recupération des données du formulaire et de mon tableau de produit au click sur le bouton Envoyez votre commande : 
 const submit = document.getElementById('submitorder');
 submit.addEventListener('click',(e)=>{
+  if (
+    email.validity.valid ||
+    adress.validity.valid ||
+    firstName.validity.valid ||
+    lastName.validity.valid ||
+    city.validity.valid
+  ) {
      e.preventDefault();
-    commandePanier();
+    commandePanier();}
 });
 
 
