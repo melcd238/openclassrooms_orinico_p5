@@ -10,7 +10,16 @@ let cancel;
 const createCalc = ()=>{
    calc=document.createElement("div");
    calc.classList.add("calc");
+   calc.addEventListener("click", ()=>{
+    calc.remove();
+});
+   
 }
+const createCalcPanier = ()=>{
+    calc=document.createElement("div");
+    calc.classList.add("calc");
+    
+ }
 const createModal =(question)=>{
     modal = document.createElement("div");
     modal.classList.add("modale");
@@ -29,6 +38,18 @@ const createModal =(question)=>{
         window.location.href= "panier.html";
     });
 }
+const createModalPanier= (question)=>{
+    modal = document.createElement("div");
+    modal.classList.add("modale");
+    modal.innerHTML= `<p> ${question} </p>`;
+    confirmation = document.createElement("button");
+    confirmation.classList.add("btn", "btn-secondary");
+    confirmation.innerText= "Confirmer";
+    cancel = document.createElement("button");
+    cancel.classList.add("btn", "btn-secondary");
+    cancel.innerText = "Annuler";
+    modal.append(confirmation, cancel);
+}
 
 
 function openModal(question) {
@@ -38,4 +59,27 @@ function openModal(question) {
     body.append(calc);
    
     
-}
+};
+
+function openModalPanier(question){
+    createCalcPanier();
+    createModalPanier(question);
+   calc.append(modal);
+    body.append(calc);
+    return new Promise ((resolve)=>{
+            calc.addEventListener('click', ()=>{
+            resolve(false);
+            calc.remove();
+        });
+        confirmation.addEventListener('click', ()=>{
+            resolve(true);
+            
+        });
+        cancel.addEventListener('click', ()=>{
+            resolve(false);
+            calc.remove();
+        });
+
+    });
+    
+};

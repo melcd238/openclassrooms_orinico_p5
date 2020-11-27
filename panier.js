@@ -62,10 +62,16 @@ const createTeddiElement = (teddi , index) =>{
     <li> <button class="deleteBtn"><i class="far fa-trash-alt"></i></button></li>
     </ul></li> `;
     const btnDelete = ul.querySelector('.deleteBtn');
-    btnDelete.addEventListener('click', (event)=>{
-        deleteTeddi(index);
+
+    btnDelete.addEventListener('click', async ()=>{
+       const result = await openModalPanier(`Voulez-vous vraiment supprimer cet article?`);
+       console.log(result);
+       if (result) {
+         deleteTeddi(index);
+       }
         
-    })
+        
+    });
     
     return ul;
 };
@@ -92,7 +98,7 @@ const compteurPanierPrixTotal = () =>{
     arrayPrixTotal.push(prix);}
     console.log(arrayPrixTotal);
     if (arrayCompteurPanier.length === 0 ) {
-      window.location.reload();
+      location.assign('panier.html');
    }else {
   let compteurPanier = arrayCompteurPanier.reduce((accumulater, valeurCourante)=> accumulater+ valeurCourante);
   let itemInCart = document.querySelector('#cart-qte');
