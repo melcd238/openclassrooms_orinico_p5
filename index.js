@@ -11,7 +11,7 @@ requete.send(); // j'envoie ma requete
 // Dès qu'on reçoit la réponse, on execute la fonction:
 requete.onload = function () { 
     if (requete.readyState === XMLHttpRequest.DONE ) { // je verifie l'état de ma requête. 
-        if (requete.status === 200){
+        if (requete.status === 200 ||requete.status === 201){
              teddiesArray = requete.response; // je stocke la reponse dans une variable.
             console.log(teddiesArray);
             afficherTeddies(); // J'affiche dynamiquement les teddies en utilisant la fonction.

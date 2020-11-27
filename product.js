@@ -45,12 +45,7 @@ const appelDeApi = async function ()  {
                 teddiesStore.push(choixTeddi); // si le tableau existe on push le choix du teddi
                } 
               localStorage.setItem("teddiesInCart", JSON.stringify(teddiesStore));
-              if (window.confirm(`${itemTed.name} a bien été ajouté au panier. Voulez-vous continuer vos achat?`)) {
-                window.location.href = "index.html";
-                
-              } else {
-                window.location.href = "panier.html";
-              }
+              openModal(`${itemTed.name} a bien été ajouté au panier. Voulez-vous continuer vos achats?`);
             } else {
               alert("localStorage n'est pas supporté");
             }
