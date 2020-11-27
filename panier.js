@@ -66,6 +66,7 @@ const createTeddiElement = (teddi , index) =>{
     btnDelete.addEventListener('click', async ()=>{
        const result = await openModalPanier(`Voulez-vous vraiment supprimer cet article?`);
        console.log(result);
+       // si la promesse est resolve, on delete le teddi sinon on ne fair rien
        if (result) {
          deleteTeddi(index);
        }
